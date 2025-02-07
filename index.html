@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Chocolate Day</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #2c1810, #4a2511, #703315);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .texture-overlay {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-5vh) translateX(-20px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) translateX(20px) rotate(360deg);
+                opacity: 0.5;
+            }
+        }
+
+        .chocolate {
+            position: absolute;
+            font-size: 2.5rem;
+            animation: fall linear infinite;
+            top: -20px;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            z-index: 10;
+        }
+
+        .message-container {
+            opacity: 0;
+            transition: opacity 1s;
+        }
+
+        .message-container.show {
+            opacity: 1;
+        }
+
+        .chocolate-gif {
+            width: 12rem;
+            height: 12rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin-bottom: 2rem;
+        }
+
+        .message {
+            font-family: 'Cookie', cursive;
+            font-size: 3rem;
+            color: #fef3c7;
+            text-align: center;
+            padding: 0 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="texture-overlay"></div>
+    <div class="content">
+        <div class="message-container">
+            <img src="https://raw.githubusercontent.com/Swazzzit/ChocolateDay/refs/heads/main/chocolate-day-national-chocolate-day.gif" alt="Chocolate" class="chocolate-gif">
+            <h1 class="message">Happy Chocolate Day My Cutiepie 🙈🍫</h1>
+        </div>
+    </div>
+
+    <script>
+        // Create falling chocolates
+        function createChocolate() {
+            const chocolate = document.createElement('div');
+            chocolate.textContent = '🍫';
+            chocolate.className = 'chocolate';
+            chocolate.style.left = `${Math.random() * 100}vw`;
+            chocolate.style.animationDuration = `${1 + Math.random()}s`; // Faster fall
+            document.body.appendChild(chocolate);
+            
+            // Remove chocolate after animation completes
+            setTimeout(() => {
+                chocolate.remove();
+            }, parseFloat(chocolate.style.animationDuration) * 1000);
+        }
+
+        // Show message after delay
+        function showMessage() {
+            setTimeout(() => {
+                document.querySelector('.message-container').classList.add('show');
+            }, 2000);
+        }
+
+        // Initialize with rapid chocolate creation
+        showMessage();
+        
+        // Create chocolates every 75ms
+        setInterval(createChocolate, 75);
+    </script>
+</body>
+</html>
